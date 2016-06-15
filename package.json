@@ -1,0 +1,42 @@
+{
+  "name": "beaf",
+  "version": "0.0.0",
+  "description": "Show the BEfore and AFter of your text transformation/processing/whatever.",
+  "main": "index.js",
+  "scripts": {
+    "build": "rm -rf dist && webpack",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kmck/beaf.git"
+  },
+  "keywords": [
+    "repl"
+  ],
+  "author": "Keith McKnight",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kmck/beaf/issues"
+  },
+  "homepage": "https://github.com/kmck/beaf#readme",
+  "dependencies": {
+    "autoprefixer": "^6.3.6",
+    "brace": "^0.8.0",
+    "css-loader": "^0.23.1",
+    "json-loader": "^0.5.4",
+    "json5": "^0.5.0",
+    "lodash": "^4.13.1",
+    "minimist": "^1.2.0",
+    "node-sass": "^3.7.0",
+    "postcss-loader": "^0.9.1",
+    "sass-loader": "^3.2.0",
+    "style-loader": "^0.13.1",
+    "webpack": "^1.13.1"
+  },
+  "eslintConfig": {
+    "env": {
+      "node": true
+    }
+  }
+}

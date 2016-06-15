@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title><%- title %></title>
+        <%= head %>
+    <head>
+    <body>
+        <header class="top-bar">
+            <h1 class="title"><a href="<%- titleUrl %>"><%- title %></a></h1>
+            <ul class="menu">
+                <% _.forEach(menuItems, function(item) { %>
+                    <li class="menu-item"><a href="<%- item.url %>" target="_blank"><%- item.name %></a></li>
+                <% } %>
+            </ul>
+        </header>
+        <main class="demo">
+            <div class="editor-container">
+                <h3 class="editor-header"><%= inputTitle %></h3>
+                <textarea id="input"></textarea>
+            </div>
+            <div class="editor-container">
+                <h3 class="editor-header"><%= outputTitle %></h3>
+                <textarea id="output" readonly></textarea>
+            </div>
+        </main>
+        <%- foot %>
+    </body>
+</html>
