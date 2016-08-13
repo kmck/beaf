@@ -30,32 +30,33 @@ a {
     color: inherit;
 }
 
-.top-bar {
+.beaf-header {
+    display: flex;
     position: fixed;
     top: 0;
     right: 0;
     left: 0;
     height: $menu-height;
-    overflow: hidden;
-    z-index: 2;
-
-    display: flex;
-    align-items: center;
 
     background-color: $header-background-color;
     color: $header-text-color;
 
+    overflow: hidden;
+    z-index: 2;
+
+    align-items: center;
+
     .title {
-        flex-grow: 1;
-        font-weight: bold;
         padding-left: $padding;
         padding-right: $padding;
+        font-weight: bold;
+        flex-grow: 1;
     }
 
     .menu {
         display: flex;
-        flex-wrap: nowrap;
         padding-right: ceil(0.5 * $padding);
+        flex-wrap: nowrap;
     }
 
     .menu-item {
@@ -64,19 +65,19 @@ a {
     }
 }
 
-.demo {
+.beaf-main {
+    display: flex;
     position: absolute;
     top: 0;
     right: 0;
     bottom: 0;
     left: 0;
-    display: flex;
     padding-top: $menu-height;
     z-index: 1;
 
     .editor-header {
-        padding-left: $padding;
         padding-right: $padding;
+        padding-left: $padding;
 
         background-color: $editor-header-background-color;
         color: $editor-header-text-color;
@@ -89,8 +90,11 @@ a {
         flex-direction: column;
         flex-grow: 1;
 
+        // It's Ace!
+        // scss-lint:disable SelectorFormat
         .ace_editor {
             flex-grow: 1;
         }
+        // scss-lint:enable SelectorFormat
     }
 }
