@@ -46,5 +46,10 @@
   "files": [
     "/src",
     "/dist"
-  ]
+  ],
+  "devDependencies": {
+    "babel-eslint": "^6.1.2",
+    "eslint": "^3.3.1",
+    "eslint-plugin-react": "^6.1.2"
+  }
 }
