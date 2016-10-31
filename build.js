@@ -3,19 +3,30 @@ import glob from 'glob';
 import { removeSync, copySync } from 'fs-extra';
 
 import { rollup } from 'rollup';
+import postcss from 'rollup-plugin-postcss';
+import postcssModules from 'postcss-modules';
 import nodeResolve from 'rollup-plugin-node-resolve';
-import css from 'modular-css/rollup';
 import babel from 'rollup-plugin-babel';
 
 const DEST_PATH = './dist';
 const SRC_JS_PATHS = glob.sync('./src/*.@(js|jsx)');
 
+const cssExportMap = {};
 const generateRollupConfig = (entry, dest) => ({
   entry,
   dest,
   format: 'cjs',
   plugins: [
-    css(),
+    entry.match(/\/src\/index\.js/) ? postcss({
+      plugins: [
+        postcssModules({
+          scopeBehaviour: 'global',
+          getJSON(id, exportTokens) {
+            cssExportMap[id] = exportTokens;
+          },
+        }),
+      ],
+    }) : false,
     nodeResolve({
       extensions: ['.js', '.jsx'],
     }),
@@ -30,7 +41,7 @@ const generateRollupConfig = (entry, dest) => ({
     }),
   ],
   external(id) {
-    return id !== entry && !/\.css$/.test(id);
+    return id !== entry && !id.match(/\.css$/);
   },
 });
 
@@ -38,7 +49,6 @@ console.log('Building BEAF npm files...');
 
 // Clear build directory
 console.log(`Wiping ${DEST_PATH}...`);
-removeSync(DEST_PATH);
 
 // Copy static files
 console.log('Copying README and other static files...');
@@ -56,14 +66,16 @@ console.log('Copying README and other static files...');
 // Run JS and JSX files through Rollup
 console.log('Building script files...');
 SRC_JS_PATHS.forEach((srcPath) => {
+  const parsedSrcPath = path.parse(srcPath);
   const {
     format,
     dest,
     ...config
   } = generateRollupConfig(srcPath, path.format({
-    ...path.parse(srcPath),
+    ...parsedSrcPath,
     dir: DEST_PATH,
-    ext: '.js',
+    base: parsedSrcPath.base.replace(/\.jsx$/, '.js'),
+    ext: parsedSrcPath.ext.replace(/\.jsx$/, '.js'),
   }));
 
   rollup(config).then(bundle => bundle.write({ format, dest }));

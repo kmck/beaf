@@ -20,27 +20,27 @@ First of all, there are `peerDependencies` that are required for any of this to 
 
 The main ingredient in BEAF is the transformation function. This takes the content of the textarea on the left and any optional parameters and puts it through some black box of your design, which returns either a Promise or the transformed value. The result of that transformation is displayed on the right.
 
-### createBeef
+### createBeaf
 
-The easiest way to get started is using `createBeef`. You can simply give it a transformation function, run it through your bundler of choice, and it'll work.
+The easiest way to get started is using `createBeaf`. You can simply give it a transformation function, run it through your bundler of choice, and it'll work.
 
 Here's an example of your entry file:
 
 
 ```js
-import { createBeef } from 'beaf';
+import { createBeaf } from 'beaf';
 
-createBeef((text, options) => {
+createBeaf((text, options) => {
   let transformedText = text;
   // YOUR CODE HERE
   return transformedText;
 });
 ```
 
-`createBeef` can also take an options object instead, which lets you do all sorts of crazy stuff. For example, you can set colors or pick a theme and syntax mode for the Ace editor.
+`createBeaf` can also take an options object instead, which lets you do all sorts of crazy stuff. For example, you can set colors or pick a theme and syntax mode for the Ace editor.
 
 ```js
-import { createBeef } from 'beaf';
+import { createBeaf } from 'beaf';
 
 // Brace themes and modes need to be imported to work!
 import 'brace/theme/monokai';

@@ -15,8 +15,6 @@ import * as actions from './actions';
 import beafReducer from './reducers';
 import BeafLayout from './BeafLayout';
 
-import './beaf.css';
-
 const mapStateToProps = state => ({
   input: state.input,
   output: state.output,
