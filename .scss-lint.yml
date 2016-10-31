@@ -85,7 +85,7 @@ linters:
     enabled: true
 
   ImportPath:
-    enabled: true
+    enabled: false
     leading_underscore: false
     filename_extension: false
 
@@ -93,7 +93,7 @@ linters:
     enabled: true
     allow_non_nested_indentation: false
     character: space # or 'tab'
-    width: 4
+    width: 2
 
   LeadingZero:
     enabled: true
@@ -164,7 +164,7 @@ linters:
     max_depth: 3
 
   SelectorFormat:
-    enabled: true
+    enabled: false
     convention: hyphenated_lowercase # or 'strict_BEM', or 'hyphenated_BEM', or 'snake_case', or 'camel_case', or a regex pattern
 
   Shorthand:

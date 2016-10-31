@@ -1,0 +1,5 @@
+export const RESET_STATE = 'RESET_STATE';
+export const UPDATE_SIZE = 'UPDATE_SIZE';
+export const UPDATE_OPTIONS = 'UPDATE_OPTIONS';
+export const UPDATE_INPUT = 'UPDATE_INPUT';
+export const UPDATE_OUTPUT = 'UPDATE_OUTPUT';
