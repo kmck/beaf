@@ -46,7 +46,13 @@ export default function Beaf(props) {
   store.dispatch(actions.loadState(localStorageKey));
 
   if (doInitialTransform) {
-    store.dispatch(actions.doInputTransformation(transform, input, output, localStorageKey));
+    const state = store.getState();
+    store.dispatch(actions.doInputTransformation(
+      transform,
+      state.input,
+      state.options,
+      localStorageKey
+    ));
   }
 
   return (

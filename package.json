@@ -1,6 +1,6 @@
 {
   "name": "beaf",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Show the BEfore and AFter of your text transformation/processing/whatever.",
   "main": "index.js",
   "scripts": {

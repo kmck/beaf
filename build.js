@@ -49,6 +49,7 @@ console.log('Building BEAF npm files...');
 
 // Clear build directory
 console.log(`Wiping ${DEST_PATH}...`);
+removeSync(DEST_PATH);
 
 // Copy static files
 console.log('Copying README and other static files...');
