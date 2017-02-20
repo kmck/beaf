@@ -27,7 +27,7 @@ const BeafApp = connect(mapStateToProps, mapDispatchToProps)(BeafLayout);
 
 export default function Beaf(props) {
   const {
-    options,
+    options: initialOptions,
     input,
     output,
     transform,
@@ -35,6 +35,24 @@ export default function Beaf(props) {
     doInitialTransform = true,
     ...restProps
   } = props;
+
+  const {
+    toolbarOptions = [],
+  } = restProps;
+
+  const options = {
+    ...toolbarOptions.reduce((defaultToolbarOptions, option) => {
+      const {
+        key,
+        defaultValue,
+      } = option;
+      if (key && defaultValue != null) {
+        Object.assign(defaultToolbarOptions, { [key]: defaultValue });
+      }
+      return defaultToolbarOptions;
+    }, {}),
+    ...initialOptions,
+  };
 
   const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
   const store = createStore(beafReducer, {
@@ -51,7 +69,7 @@ export default function Beaf(props) {
       transform,
       state.input,
       state.options,
-      localStorageKey
+      localStorageKey,
     ));
   }
 

@@ -16,16 +16,16 @@ const webpackConfig = {
     filename: '[name].js',
   },
   resolve: {
-    extensions: ['', '.js', '.jsx'],
+    extensions: ['.js', '.jsx'],
   },
   module: {
     loaders: [{
       test: /\.css$/,
-      loader: 'style!css',
+      loader: 'style-loader!css-loader',
     }, {
       test: /\.jsx?$/,
       exclude: /(node_modules)/,
-      loader: 'babel',
+      loader: 'babel-loader',
     }],
   },
 };

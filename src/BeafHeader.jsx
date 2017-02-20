@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class BeafHeader extends Component {
+export default class BeafHeader extends Component {
   static defaultProps = {
     title: '',
     titleUrl: '',
@@ -34,5 +34,3 @@ class BeafHeader extends Component {
     );
   }
 }
-
-export default BeafHeader;

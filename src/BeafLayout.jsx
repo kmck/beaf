@@ -3,15 +3,18 @@ import React, { Component, PropTypes } from 'react';
 import SplitPane from 'react-split-pane';
 
 import BeafHeader from './BeafHeader';
+import BeafToolbar from './BeafToolbar';
 import BeafPane from './BeafPane';
 import BeafEditor from './BeafEditor';
 
-class BeafLayout extends Component {
+export default class BeafLayout extends Component {
   static defaultProps = {
     HeaderComponent: BeafHeader,
+    ToolbarComponent: BeafToolbar,
     InputComponent: BeafEditor,
     OutputComponent: BeafEditor,
     headerProps: {},
+    toolbarProps: {},
     paneProps: {},
     inputProps: {
       autoFocus: true,
@@ -22,10 +25,17 @@ class BeafLayout extends Component {
 
     backgroundColor: '',
     textColor: '',
+    fontFamily: '',
     headerBackgroundColor: '',
     headerTextColor: '',
+    headerFontFamily: '',
+    toolbarBackgroundColor: '',
+    toolbarTextColor: '',
+    toolbarFontFamily: '',
     subheaderBackgroundColor: '',
     subheaderTextColor: '',
+    subheaderFontFamily: '',
+    editorFontFamily: '',
 
     title: 'Beaf',
     titleUrl: 'https://github.com/kmck/beaf',
@@ -34,11 +44,12 @@ class BeafLayout extends Component {
       url: 'https://www.npmjs.com/package/beaf',
     }],
 
+    toolbarOptions: [],
+
     inputTitle: 'Input',
     outputTitle: 'Output',
 
     localStorageKey: '',
-    defaultOptions: {},
     options: {},
     input: '',
     output: '',
@@ -60,6 +71,7 @@ class BeafLayout extends Component {
     title: PropTypes.string,
     titleUrl: PropTypes.string,
     menuItems: PropTypes.array,
+    menuOptions: PropTypes.array,
 
     theme: PropTypes.string,
     inputTitle: PropTypes.string,
@@ -68,12 +80,12 @@ class BeafLayout extends Component {
     outputMode: PropTypes.string,
 
     localStorageKey: PropTypes.string,
-    defaultOptions: PropTypes.object,
     options: PropTypes.object,
     input: PropTypes.string.isRequired,
     output: PropTypes.string.isRequired,
     transform: PropTypes.func.isRequired,
 
+    updateOptions: PropTypes.func,
     updateInput: PropTypes.func.isRequired,
     doInputTransformation: PropTypes.func.isRequired,
   };
@@ -81,23 +93,34 @@ class BeafLayout extends Component {
   render() {
     const {
       HeaderComponent,
+      ToolbarComponent,
       InputComponent,
       OutputComponent,
       headerProps,
+      toolbarProps,
       paneProps,
       inputProps,
       outputProps,
 
       backgroundColor,
       textColor,
+      fontFamily,
       headerBackgroundColor,
       headerTextColor,
+      headerFontFamily,
+      toolbarBackgroundColor,
+      toolbarTextColor,
+      toolbarFontFamily,
       subheaderBackgroundColor,
       subheaderTextColor,
+      subheaderFontFamily,
+      editorFontFamily,
 
       title,
       titleUrl,
       menuItems,
+
+      toolbarOptions,
 
       theme,
       inputTitle,
@@ -106,13 +129,13 @@ class BeafLayout extends Component {
       outputMode,
 
       localStorageKey,
-      defaultOptions,
       options,
       input,
       output,
       transform,
       size,
 
+      updateOptions,
       updateInput,
       updateSize,
       doInputTransformation,
@@ -121,26 +144,45 @@ class BeafLayout extends Component {
     const style = {
       backgroundColor,
       color: textColor,
+      fontFamily,
     };
 
-    const combinedOptions = { ...defaultOptions, ...options };
-
     const combinedHeaderProps = {
-      options: combinedOptions,
+      options,
       title,
       titleUrl,
       menuItems,
       style: {
         backgroundColor: headerBackgroundColor || backgroundColor,
         color: headerTextColor || textColor,
+        fontFamily: headerFontFamily || fontFamily,
       },
       ...headerProps,
+    };
+
+    const combinedToolbarProps = {
+      options,
+      toolbarOptions,
+      updateOption: (option, newValue) => {
+        updateOptions({ [option]: newValue });
+        doInputTransformation(transform, input, {
+          ...options,
+          [option]: newValue,
+        }, localStorageKey);
+      },
+      style: {
+        backgroundColor: toolbarBackgroundColor || headerBackgroundColor || backgroundColor,
+        color: toolbarTextColor || headerTextColor || textColor,
+        fontFamily: toolbarFontFamily || headerFontFamily || fontFamily,
+      },
+      ...toolbarProps,
     };
 
     const combinedPaneProps = {
       headerStyle: {
         backgroundColor: subheaderBackgroundColor || headerBackgroundColor || backgroundColor,
         color: subheaderTextColor || headerTextColor || textColor,
+        fontFamily: subheaderFontFamily || headerFontFamily || fontFamily,
       },
       ...paneProps,
     };
@@ -153,7 +195,10 @@ class BeafLayout extends Component {
       theme,
       onChange: (newValue) => {
         updateInput(newValue, localStorageKey);
-        doInputTransformation(transform, newValue, combinedOptions, localStorageKey);
+        doInputTransformation(transform, newValue, options, localStorageKey);
+      },
+      aceOptions: {
+        fontFamily: editorFontFamily,
       },
       ...inputProps,
     };
@@ -164,12 +209,16 @@ class BeafLayout extends Component {
       mode: outputMode,
       size,
       theme,
+      aceOptions: {
+        fontFamily: editorFontFamily,
+      },
       ...outputProps,
     };
 
     return (
       <div className="Beaf" style={style}>
         <HeaderComponent {...combinedHeaderProps} />
+        <ToolbarComponent {...combinedToolbarProps} />
         <main className="BeafPanes">
           <SplitPane
             split="vertical"
@@ -190,5 +239,3 @@ class BeafLayout extends Component {
     );
   }
 }
-
-export default BeafLayout;

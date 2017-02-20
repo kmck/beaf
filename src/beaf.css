@@ -16,7 +16,9 @@
 .BeafHeaderTitle,
 .BeafPaneHeader,
 .BeafHeaderMenu,
-.BeafHeaderMenuItem {
+.BeafHeaderMenuItem,
+.BeafToolbarOptions,
+.BeafToolbarOption {
   margin: 0;
   padding: 0;
 }
@@ -48,6 +50,30 @@
 .BeafPanes {
   position: relative;
   flex-grow: 1;
+}
+
+.BeafToolbar {
+  display: flex;
+  align-items: center;
+  padding: 0.8rem;
+
+  overflow: hidden;
+  z-index: 2;
+}
+
+.BeafToolbarOptions {
+  display: flex;
+  flex-wrap: nowrap;
+  list-style: none;
+}
+
+.BeafToolbarOption:not(:first-child) {
+  margin-left: 1rem;
+}
+
+.BeafToolbarOption select,
+.BeafToolbarOption input {
+  margin-right: 0.5rem;
 }
 
 .BeafPane {

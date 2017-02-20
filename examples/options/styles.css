@@ -1,0 +1,25 @@
+@import url('https://fonts.googleapis.com/css?family=PT+Mono');
+
+body {
+  font-family: 'PT Mono', monospace;
+}
+
+.Beaf {
+  font-family: inherit;
+  font-size: 10pt;
+}
+
+.BeafHeader {
+  background-color: #009fb7;
+  color: #eff1f3;
+}
+
+.BeafToolbar {
+  background-color: #272727;
+  color: #fed766;
+}
+
+.BeafPaneHeader {
+  background-color: #696773;
+  color: #eff1f3;
+}

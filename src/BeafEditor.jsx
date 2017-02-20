@@ -26,16 +26,19 @@ export default class BeafEditor extends Component {
     onChange: PropTypes.func,
     autoFocus: PropTypes.bool,
     readOnly: PropTypes.bool,
+    resetUndo: PropTypes.bool,
     theme: PropTypes.string.isRequired,
     mode: PropTypes.string.isRequired,
     aceStyle: PropTypes.object,
     aceProps: PropTypes.object,
+    aceOptions: PropTypes.object,
   };
 
   componentDidMount() {
     const { ace = {} } = this.refs;
     const {
       autoFocus,
+      aceOptions,
       resetUndo,
     } = this.props;
 
@@ -44,12 +47,19 @@ export default class BeafEditor extends Component {
       ace.editor.focus();
     }
 
+    // Options
+    if (aceOptions && ace.editor) {
+      ace.editor.setOptions(aceOptions);
+    }
+
     // Reset undo manager
     setTimeout(() => {
-      if (resetUndo) {
-        ace.editor.getSession().getUndoManager().reset();
+      if (ace.editor) {
+        if (resetUndo) {
+          ace.editor.getSession().getUndoManager().reset();
+        }
+        ace.editor.resize();
       }
-      ace.editor.resize();
     }, 0);
   }
 

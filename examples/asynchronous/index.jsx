@@ -4,6 +4,10 @@ import { createBeaf } from '../../src/index';
 
 const debouncedTransform = debounce((resolve, input) => { resolve(input); }, 250);
 
+const reactRoot = document.createElement('div');
+reactRoot.id = 'root';
+document.body.appendChild(reactRoot);
+
 createBeaf({
   localStorageKey: '',
   title: 'Asynchronous transformation',

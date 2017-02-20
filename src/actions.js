@@ -109,7 +109,7 @@ export const doInputTransformation = (transform, input, options, localStorageKey
           console.error(error);
           saveStateToLocalStorageThrottled(getState(), localStorageKey);
         });
-    } else {
+    } else if (transformedOutput != null) {
       dispatch(updateOutputAction(transformedOutput));
       saveStateToLocalStorageThrottled(getState(), localStorageKey);
     }
